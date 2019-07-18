@@ -17,15 +17,14 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         print("ViewController: viewDidLoad.")
         player.delegate = self as? FRadioPlayerDelegate
+        player.radioURL = URL(string: "link de stream da rádio")
         navBarButton()
         // Do any additional setup after loading the view, typically from a nib.
     }
     
     @IBAction func btnPlay(_ sender: UIButton) {
         print("Toca música")
-        player.radioURL = URL(string: "http://zoeweb.net:8046")
         player.play()
-        player.togglePlaying()
     }
     
     @IBAction func btnPause(_ sender: UIButton) {
@@ -33,7 +32,6 @@ class ViewController: UIViewController {
         player.stop()
     }
     
-
     
     
     
@@ -51,5 +49,11 @@ class ViewController: UIViewController {
     
     @objc func showDetails() {
         print("Ola")
+        let about = DetailsRecifeViewController()
+        if let navigation = navigationController {
+            navigation.pushViewController(about, animated: true)
+        } else {
+            Alert(controller: self).show()
+        }
     }
 }

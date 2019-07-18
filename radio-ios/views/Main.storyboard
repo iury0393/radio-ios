@@ -13,7 +13,7 @@
         <!--Item-->
         <scene sceneID="aI6-ZS-Cys">
             <objects>
-                <navigationController id="I4W-cf-rlf" customClass="viewContro" sceneMemberID="viewController">
+                <navigationController id="I4W-cf-rlf" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="pZJ-sb-7Zj"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="pCR-FY-uwf">
                         <rect key="frame" x="0.0" y="20" width="320" height="44"/>
@@ -30,7 +30,7 @@
         <!--View Controller-->
         <scene sceneID="lKZ-gQ-jYx">
             <objects>
-                <viewController id="ZIm-nI-uCT" customClass="ViewController" customModule="recifefm" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="ZIm-nI-uCT" customClass="ViewController" customModule="radio_ios" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="gy9-Xs-Y3O">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
