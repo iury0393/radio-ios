@@ -11,32 +11,46 @@ import FRadioPlayer
 
 class ViewController: UIViewController {
     
+    @IBOutlet weak var volumeSlider: UISlider!
+    @IBOutlet weak var btnRadio: UIButton!
     let player = FRadioPlayer.shared
     
     override func viewDidLoad() {
         super.viewDidLoad()
         print("ViewController: viewDidLoad.")
         player.delegate = self as? FRadioPlayerDelegate
-        player.radioURL = URL(string: "link de stream da rádio")
+        player.radioURL = URL(string: "http://zoeweb.net:8046")
         navBarButton()
-        // Do any additional setup after loading the view, typically from a nib.
+        let navBarImage = UIImage(named: "navigationbar")
+        self.navigationController?.navigationBar.setBackgroundImage(navBarImage, for: .default)
     }
     
-    @IBAction func btnPlay(_ sender: UIButton) {
-        print("Toca música")
-        player.play()
+    @IBAction func btnPlayPause() {
+        player.togglePlaying()
+        
+        if player.isPlaying {
+            print("Creating stream: stream created")
+            
+            let imagePause = UIImage(named: "player-pause")
+            btnRadio.setBackgroundImage(imagePause, for: UIControl.State.normal)
+            
+            let imagePausePushed = UIImage(named: "player-pause-pushed")
+            btnRadio.setBackgroundImage(imagePausePushed, for: UIControl.State.highlighted)
+        } else {
+            print("Destroying stream: stream destroyed")
+            
+            let imagePlay = UIImage(named: "player")
+            btnRadio.setBackgroundImage(imagePlay, for: UIControl.State.normal)
+            
+            let imagePlayPushed = UIImage(named: "player-pushed")
+            btnRadio.setBackgroundImage(imagePlayPushed, for: UIControl.State.highlighted)
+        }
     }
     
-    @IBAction func btnPause(_ sender: UIButton) {
-        print("Pausa música")
-        player.stop()
+    @IBAction func volumeSliderAction() {
+
+        
     }
-    
-    
-    
-    
-    
-    
     
     private func navBarButton() {
         let button = UIButton.init(type: .custom)
@@ -48,7 +62,6 @@ class ViewController: UIViewController {
     }
     
     @objc func showDetails() {
-        print("Ola")
         let about = DetailsRecifeViewController()
         if let navigation = navigationController {
             navigation.pushViewController(about, animated: true)
