@@ -8,21 +8,45 @@
 
 import UIKit
 import FRadioPlayer
+import MediaPlayer
 
 class ViewController: UIViewController {
     
-    @IBOutlet weak var volumeSlider: UISlider!
     @IBOutlet weak var btnRadio: UIButton!
     let player = FRadioPlayer.shared
-    
+    let wrapperView = UIView(frame: CGRect(x: 0, y: 0, width: 300, height: 20))
+
     override func viewDidLoad() {
         super.viewDidLoad()
         print("ViewController: viewDidLoad.")
         player.delegate = self as? FRadioPlayerDelegate
-        player.radioURL = URL(string: "http://zoeweb.net:8046")
+        player.radioURL = URL(string: "URL da stream")
         navBarButton()
-        let navBarImage = UIImage(named: "navigationbar")
-        self.navigationController?.navigationBar.setBackgroundImage(navBarImage, for: .default)
+        setupRemoteTransportControls()
+        setupNowPlaying()
+        
+        btnRadio.isEnabled = false
+        Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false, block: { timer in
+            self.btnRadio.isEnabled = true
+        })
+        
+        view.backgroundColor = UIColor.clear
+        view.addSubview(wrapperView)
+        let volumeView = MPVolumeView(frame: wrapperView.bounds)
+        wrapperView.addSubview(volumeView)
+        
+        wrapperView.translatesAutoresizingMaskIntoConstraints = false
+        
+        wrapperView.centerXAnchor.constraint(equalTo: btnRadio.centerXAnchor).isActive = true
+        wrapperView.topAnchor.constraint(equalTo: btnRadio.topAnchor, constant: 250).isActive = true
+        wrapperView.widthAnchor.constraint(equalToConstant: 300).isActive = true
+        wrapperView.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        
+        let imagePause = UIImage(named: "player-pause")
+        btnRadio.setBackgroundImage(imagePause, for: UIControl.State.normal)
+
+        let imagePausePushed = UIImage(named: "player-pause-pushed")
+        btnRadio.setBackgroundImage(imagePausePushed, for: UIControl.State.highlighted)
     }
     
     @IBAction func btnPlayPause() {
@@ -47,18 +71,12 @@ class ViewController: UIViewController {
         }
     }
     
-    @IBAction func volumeSliderAction() {
-
-        
-    }
-    
     private func navBarButton() {
-        let button = UIButton.init(type: .custom)
-        button.setImage(UIImage.init(named: "btn-close.png"), for: UIControl.State.normal)
-        button.addTarget(self, action:#selector(ViewController.showDetails), for:.touchUpInside)
-        button.frame = CGRect.init(x: 0, y: 0, width: 30, height: 30) //CGRectMake(0, 0, 30, 30)
-        let barButton = UIBarButtonItem.init(customView: button)
-        self.navigationItem.leftBarButtonItem = barButton
+        let button = UIButton(frame: CGRect(x: 10, y: 25, width: 30, height: 30))
+        let btnImage = UIImage(named: "btn-close")
+        button.setBackgroundImage(btnImage, for: .normal)
+        button.addTarget(self, action: #selector(showDetails), for: .touchUpInside)
+        self.view.addSubview(button)
     }
     
     @objc func showDetails() {
@@ -68,5 +86,45 @@ class ViewController: UIViewController {
         } else {
             Alert(controller: self).show()
         }
+    }
+    
+    func setupRemoteTransportControls() {
+        // Get the shared MPRemoteCommandCenter
+        let commandCenter = MPRemoteCommandCenter.shared()
+        
+        // Add handler for Play Command
+        commandCenter.playCommand.addTarget { [unowned self] event in
+            if self.player.rate == 0.0 {
+                self.player.play()
+                return .success
+            }
+            return .commandFailed
+        }
+        
+        // Add handler for Pause Command
+        commandCenter.pauseCommand.addTarget { [unowned self] event in
+            if self.player.rate == 1.0 {
+                self.player.pause()
+                return .success
+            }
+            return .commandFailed
+        }
+    }
+    
+    func setupNowPlaying() {
+        // Define Now Playing Info
+        var nowPlayingInfo = [String : Any]()
+        nowPlayingInfo[MPMediaItemPropertyTitle] = "Radio"
+        
+        if let image = UIImage(named: "lockscreen") {
+            nowPlayingInfo[MPMediaItemPropertyArtwork] =
+                MPMediaItemArtwork(boundsSize: image.size) { size in
+                    return image
+            }
+        }
+        nowPlayingInfo[MPNowPlayingInfoPropertyPlaybackRate] = player.rate
+        
+        // Set the metadata
+        MPNowPlayingInfoCenter.default().nowPlayingInfo = nowPlayingInfo
     }
 }

@@ -15,45 +15,43 @@ class DetailsRecifeViewController: UIViewController {
     }
     
     @IBAction func btnFacebook() {
-        print("Facebook")
         guard let url = URL(string: "http://www.facebook.com/") else {
-            return //be safe
+            return
         }
         goToUrl(url)
     }
     
     @IBAction func btnInstagram() {
-        print("Instagram")
         guard let url = URL(string: "http://www.instagram.com/") else {
-            return //be safe
+            return
         }
         goToUrl(url)
     }
     
     @IBAction func btnTwitter() {
-        print("Twitter")
         guard let url = URL(string: "http://www.twitter.com/") else {
-            return //be safe
+            return
         }
         goToUrl(url)
     }
     
     @IBAction func btnYoutube() {
-        print("Youtube")
-        guard let url = URL(string: "http://www.youtube.com/recifefm") else {
-            return //be safe
+        guard let url = URL(string: "http://www.youtube.com/") else {
+            return
         }
         goToUrl(url)
     }
     
     @IBAction func btnSite() {
-        print("RecifeFM")
-        guard let url = URL(string: "http://www.google.com.br/") else {
-            return //be safe
+        guard let url = URL(string: "Site") else {
+            return
         }
         goToUrl(url)
     }
-
+    
+    @IBAction func goBack() {
+        navigationController?.popViewController(animated: true)
+    }
     
     func goToUrl (_ url:URL) {
         if #available(iOS 10.0, *) {
