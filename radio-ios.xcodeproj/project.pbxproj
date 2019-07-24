@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		552318C2792E0781E21D400C /* Pods_radio_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 754C7F1932D528F7D7D8669E /* Pods_radio_ios.framework */; };
+		8A3A702722E8A58800CB9C24 /* SimpleOver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3A702622E8A58800CB9C24 /* SimpleOver.swift */; };
 		8A4431FA22E74AA2008F97E9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8A4431F922E74AA2008F97E9 /* LaunchScreen.storyboard */; };
 		8A4EC05F22DF8874002834C5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A4EC05E22DF8874002834C5 /* AppDelegate.swift */; };
 		8A4EC06622DF8879002834C5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8A4EC06522DF8879002834C5 /* Assets.xcassets */; };
@@ -22,6 +23,7 @@
 		2D2AB6239BB33C3221573410 /* Pods-radio-ios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-radio-ios.debug.xcconfig"; path = "Pods/Target Support Files/Pods-radio-ios/Pods-radio-ios.debug.xcconfig"; sourceTree = "<group>"; };
 		513F51AA779E6FA25983FCF1 /* Pods-radio-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-radio-ios.release.xcconfig"; path = "Pods/Target Support Files/Pods-radio-ios/Pods-radio-ios.release.xcconfig"; sourceTree = "<group>"; };
 		754C7F1932D528F7D7D8669E /* Pods_radio_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_radio_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8A3A702622E8A58800CB9C24 /* SimpleOver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleOver.swift; sourceTree = "<group>"; };
 		8A4431F922E74AA2008F97E9 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8A4EC05B22DF8874002834C5 /* radio-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "radio-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A4EC05E22DF8874002834C5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -97,6 +99,7 @@
 			isa = PBXGroup;
 			children = (
 				8A4EC07322DF8AD7002834C5 /* ViewController.swift */,
+				8A3A702622E8A58800CB9C24 /* SimpleOver.swift */,
 			);
 			path = Radio;
 			sourceTree = "<group>";
@@ -256,6 +259,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8A4EC0B822DF8AD7002834C5 /* ViewController.swift in Sources */,
+				8A3A702722E8A58800CB9C24 /* SimpleOver.swift in Sources */,
 				8A4EC05F22DF8874002834C5 /* AppDelegate.swift in Sources */,
 				8A4EC0FE22E0B963002834C5 /* Alert.swift in Sources */,
 				8A4EC0B722DF8AD7002834C5 /* DetailsRecifeViewController.swift in Sources */,

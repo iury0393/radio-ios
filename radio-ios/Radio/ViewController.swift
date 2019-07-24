@@ -10,25 +10,27 @@ import UIKit
 import FRadioPlayer
 import MediaPlayer
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UIViewControllerTransitioningDelegate, UINavigationControllerDelegate {
     
     @IBOutlet weak var btnRadio: UIButton!
     let player = FRadioPlayer.shared
+    let simpleOver = SimpleOver()
     let wrapperView = UIView(frame: CGRect(x: 0, y: 0, width: 300, height: 20))
 
     override func viewDidLoad() {
         super.viewDidLoad()
         print("ViewController: viewDidLoad.")
         player.delegate = self as? FRadioPlayerDelegate
-        player.radioURL = URL(string: "URL da stream")
+        navigationController?.delegate = self
+        player.radioURL = URL(string: "http://zoeweb.net")
         navBarButton()
         setupRemoteTransportControls()
         setupNowPlaying()
         
-        btnRadio.isEnabled = false
-        Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false, block: { timer in
-            self.btnRadio.isEnabled = true
-        })
+//        btnRadio.isEnabled = false
+//        Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false, block: { timer in
+//            self.btnRadio.isEnabled = true
+//        })
         
         view.backgroundColor = UIColor.clear
         view.addSubview(wrapperView)
@@ -47,6 +49,16 @@ class ViewController: UIViewController {
 
         let imagePausePushed = UIImage(named: "player-pause-pushed")
         btnRadio.setBackgroundImage(imagePausePushed, for: UIControl.State.highlighted)
+    }
+    
+    func navigationController(
+        _ navigationController: UINavigationController,
+        animationControllerFor operation: UINavigationController.Operation,
+        from fromVC: UIViewController,
+        to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        
+        simpleOver.popStyle = (operation == .pop)
+        return simpleOver
     }
     
     @IBAction func btnPlayPause() {
@@ -73,7 +85,7 @@ class ViewController: UIViewController {
     
     private func navBarButton() {
         let button = UIButton(frame: CGRect(x: 10, y: 25, width: 30, height: 30))
-        let btnImage = UIImage(named: "btn-close")
+        let btnImage = UIImage(named: "icon-menu")
         button.setBackgroundImage(btnImage, for: .normal)
         button.addTarget(self, action: #selector(showDetails), for: .touchUpInside)
         self.view.addSubview(button)
@@ -114,9 +126,9 @@ class ViewController: UIViewController {
     func setupNowPlaying() {
         // Define Now Playing Info
         var nowPlayingInfo = [String : Any]()
-        nowPlayingInfo[MPMediaItemPropertyTitle] = "Radio"
+        nowPlayingInfo[MPMediaItemPropertyTitle] = "FM"
         
-        if let image = UIImage(named: "lockscreen") {
+        if let image = UIImage(named: "logo") {
             nowPlayingInfo[MPMediaItemPropertyArtwork] =
                 MPMediaItemArtwork(boundsSize: image.size) { size in
                     return image
